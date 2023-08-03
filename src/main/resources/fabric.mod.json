@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "come-back-my-villagers",
+  "version": "${version}",
+  "name": "Come back my villagers",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/zly2006/come-back-my-villagers"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/come-back-my-villagers/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.zly2006.comebackmyvillagers.ComeBackMyVillagers"
+    ]
+  },
+  "mixins": [
+    "come-back-my-villagers.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13",
+    "minecraft": ">1.20.1"
+  },
+  "accessWidener": "come-back-my-villagers.accesswidener"
+}
