@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "Come back my villagers",
   "description": "",
-  "authors": [],
+  "authors": [
+    "zly2006"
+  ],
   "contact": {
     "repo": "https://github.com/zly2006/come-back-my-villagers"
   },
@@ -13,7 +15,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.zly2006.comebackmyvillagers.ComeBackMyVillagers"
+      "com.github.zly2006.cbmv.fabric.ComeBackMyVillagers"
     ]
   },
   "mixins": [

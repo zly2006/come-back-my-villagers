@@ -1,9 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.github.zly2006.comebackmyvillagers.mixin",
+  "package": "com.github.zly2006.cbmv.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinGossip",
     "MixinVillagerEntity"
   ],
   "client": [
