@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
+    id 'application'
 }
 
 version = project.mod_version
@@ -69,6 +70,7 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}"}
     }
+    from("plugin.yml")
 }
 
 // configure the maven publication
