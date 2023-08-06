@@ -73,7 +73,13 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}"}
     }
-    from("plugin.yml")
+    doLast {
+        copy {
+            from("build/libs")
+            into("spigot/plugins")
+            duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+        }
+    }
 }
 
 // configure the maven publication

@@ -23,6 +23,7 @@ public class ComeBackMyVillagers extends JavaPlugin implements Listener {
     static int lastLevel = 0;
     static int lastChoice = 0;
     boolean curingListenerRegistered = false;
+    boolean showWarningIfNotPaper = true;
 
     static final ImmutableMap<Integer, TradeOfferFactory[]> LIBRARIAN_OFFERS = new ImmutableMap.Builder<Integer, TradeOfferFactory[]>()
             .put(1, new TradeOfferFactory[]{
@@ -53,17 +54,19 @@ public class ComeBackMyVillagers extends JavaPlugin implements Listener {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         try {
-            getServer().getPluginManager().registerEvents(new PaperListener(), this);
+            getServer().getPluginManager().registerEvents(new PaperListener(this), this);
             curingListenerRegistered = true;
         } catch (NoClassDefFoundError e) {
             // if failed to load class, a runtime error will be thrown
             getLogger().warning("Failed to load event handler for curing villagers. This requires Paper API. If your server is not Paper, you can only get the only trading offers back.");
         }
+        saveDefaultConfig();
+        showWarningIfNotPaper = getConfig().getBoolean("showWarningIfNotPaper", true);
     }
 
     @EventHandler
     public void onOpJoin(PlayerJoinEvent event) {
-        if (event.getPlayer().isOp()) {
+        if (event.getPlayer().isOp() && !curingListenerRegistered && showWarningIfNotPaper) {
             event.getPlayer().sendMessage("§c[come-back-my-villagers] Failed to load event handler for curing villagers. This requires Paper API. If your server is not Paper, you can only get the only trading offers back.\nFor more info, please see https://github.com/zly2006/come-back-my-villagers/blob/master/bukkit.md");
         }
     }
