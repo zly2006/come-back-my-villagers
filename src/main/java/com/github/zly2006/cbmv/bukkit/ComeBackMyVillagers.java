@@ -7,6 +7,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.VillagerAcquireTradeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -21,6 +22,7 @@ public class ComeBackMyVillagers extends JavaPlugin implements Listener {
     static UUID lastModified = null;
     static int lastLevel = 0;
     static int lastChoice = 0;
+    boolean curingListenerRegistered = false;
 
     static final ImmutableMap<Integer, TradeOfferFactory[]> LIBRARIAN_OFFERS = new ImmutableMap.Builder<Integer, TradeOfferFactory[]>()
             .put(1, new TradeOfferFactory[]{
@@ -50,6 +52,20 @@ public class ComeBackMyVillagers extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
+        try {
+            getServer().getPluginManager().registerEvents(new PaperListener(), this);
+            curingListenerRegistered = true;
+        } catch (NoClassDefFoundError e) {
+            // if failed to load class, a runtime error will be thrown
+            getLogger().warning("Failed to load event handler for curing villagers. This requires Paper API. If your server is not Paper, you can only get the only trading offers back.");
+        }
+    }
+
+    @EventHandler
+    public void onOpJoin(PlayerJoinEvent event) {
+        if (event.getPlayer().isOp()) {
+            event.getPlayer().sendMessage("§c[come-back-my-villagers] Failed to load event handler for curing villagers. This requires Paper API. If your server is not Paper, you can only get the only trading offers back.\nFor more info, please see https://github.com/zly2006/come-back-my-villagers/blob/master/bukkit.md");
+        }
     }
 
     @EventHandler
