@@ -35,10 +35,9 @@ public class PaperListener implements Listener {
                         Villager villager = (Villager) event.getEntity().getWorld().getEntity(event.getTransformedEntity().getUniqueId());
                         if (villager != null) {
                             Reputation reputation = villager.getReputation(conversionPlayer.getUniqueId());
-                            if (reputation != null) {
+                            if (reputation == null) {
                                 reputation = new Reputation();
                             }
-                            assert reputation != null;
                             reputation.setReputation(ReputationType.MAJOR_POSITIVE, reputation.getReputation(ReputationType.MAJOR_POSITIVE) + 20);
                             villager.setReputation(conversionPlayer.getUniqueId(), reputation);
                         }
