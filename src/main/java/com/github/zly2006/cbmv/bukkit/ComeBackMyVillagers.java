@@ -54,9 +54,9 @@ public class ComeBackMyVillagers extends JavaPlugin implements Listener {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
         try {
-            getServer().getPluginManager().registerEvents(new PaperListener(this), this);
+            getServer().getPluginManager().registerEvents(new PaperListener(true, this), this);
             curingListenerRegistered = true;
-        } catch (NoClassDefFoundError e) {
+        } catch (Throwable e) {
             // if failed to load class, a runtime error will be thrown
             getLogger().warning("Failed to load event handler for curing villagers. This requires Paper API. If your server is not Paper, you can only get the only trading offers back.");
         }
