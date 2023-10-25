@@ -147,7 +147,7 @@ public class ComeBackMyVillagers extends JavaPlugin implements Listener {
                 l = 64;
             }
 
-            MerchantRecipe recipe = new MerchantRecipe(itemStack, 0, 12, true, experience, 0.05f);
+            MerchantRecipe recipe = new MerchantRecipe(itemStack, 0, 12, true, experience, 0.2f);
             recipe.addIngredient(new ItemStack(Material.EMERALD, l));
             recipe.addIngredient(new ItemStack(Material.BOOK));
             return recipe;

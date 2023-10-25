@@ -2,6 +2,11 @@ package com.github.zly2006.cbmv.bukkit;
 
 import com.destroystokyo.paper.entity.villager.Reputation;
 import com.destroystokyo.paper.entity.villager.ReputationType;
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
+import net.minecraft.village.TradeOffers;
+import net.minecraft.village.VillagerProfession;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.ZombieVillager;
@@ -10,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTransformEvent;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 
 public class PaperListener implements Listener {
     final boolean useNms;
