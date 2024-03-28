@@ -5,7 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "MixinGossip",
-    "MixinVillagerEntity"
+    "MixinVillagerEntity",
+    "raid.MixinBadOmen",
+    "raid.MixinRaid",
+    "raid.MixinRaider"
   ],
   "client": [
   ],
