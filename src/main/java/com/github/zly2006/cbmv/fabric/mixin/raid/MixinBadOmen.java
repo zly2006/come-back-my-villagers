@@ -1,5 +1,6 @@
 package com.github.zly2006.cbmv.fabric.mixin.raid;
 
+import com.github.zly2006.cbmv.fabric.Settings;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,12 +23,14 @@ public class MixinBadOmen {
             cancellable = true
     )
     private void triggerRaid(LivingEntity entity, int amplifier, CallbackInfoReturnable<Boolean> cir, @Local ServerPlayerEntity player) {
-        BlockPos blockPos = player.getBlockPos();
-        ServerWorld world = player.getServerWorld();
-        if (world.getDifficulty() != Difficulty.PEACEFUL && world.isNearOccupiedPointOfInterest(blockPos)) {
-            world.getRaidManager().startRaid(player, blockPos);
-        }
+        if (Settings.stackedRaidFarms) {
+            BlockPos blockPos = player.getBlockPos();
+            ServerWorld world = player.getServerWorld();
+            if (world.getDifficulty() != Difficulty.PEACEFUL && world.isNearOccupiedPointOfInterest(blockPos)) {
+                world.getRaidManager().startRaid(player, blockPos);
+            }
 
-        cir.setReturnValue(true);
+            cir.setReturnValue(true);
+        }
     }
 }

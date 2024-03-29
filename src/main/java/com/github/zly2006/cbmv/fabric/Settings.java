@@ -10,4 +10,5 @@ public class Settings {
             categories = {RuleCategory.CREATIVE, VILLAGER_CATEGORY}
     )*/
     public static boolean villagerOldCure = true;
+    public static boolean stackedRaidFarms = true;
 }

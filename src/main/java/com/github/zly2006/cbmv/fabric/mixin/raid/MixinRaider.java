@@ -1,5 +1,6 @@
 package com.github.zly2006.cbmv.fabric.mixin.raid;
 
+import com.github.zly2006.cbmv.fabric.Settings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -38,6 +39,7 @@ public class MixinRaider extends PatrolEntity {
             cancellable = true
     )
     private void giveOmen(DamageSource damageSource, CallbackInfo ci) {
+        if (!Settings.stackedRaidFarms) return;
         Entity entity = damageSource.getAttacker();
         ItemStack itemStack = this.getEquippedStack(EquipmentSlot.HEAD);
         PlayerEntity playerEntity = null;
