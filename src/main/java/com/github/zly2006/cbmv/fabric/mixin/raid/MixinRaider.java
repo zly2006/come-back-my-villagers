@@ -68,6 +68,8 @@ public class MixinRaider extends PatrolEntity {
                 playerEntity.addStatusEffect(statusEffectInstance2);
             }
         }
+
+        super.onDeath(damageSource);
         ci.cancel();
     }
 }
