@@ -55,10 +55,11 @@ public abstract class MixinVillagerEntity {
     @Redirect(method = "fillRecipes", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;get(I)Ljava/lang/Object;", remap = false))
     private Object fillRecipesModify(Int2ObjectMap instance, int i) {
         if (Settings.villagerOldOffers) {
-            return PROFESSION_TO_LEVELED_TRADE.get(getVillagerData().getProfession()).get(i);
+            var factories = PROFESSION_TO_LEVELED_TRADE.get(getVillagerData().getProfession());
+            if (factories != null) {
+                return factories.get(i);
+            }
         }
-        else {
-            return instance.get(i);
-        }
+        return instance.get(i);
     }
 }
