@@ -1,5 +1,9 @@
 # Use as a Bukkit Plugin
 
+> [!WARNING]
+> 
+> Discontinued. This mod is no longer maintained. Please use the Fabric version instead.
+
 This mod can be used as a Bukkit plugin.
 
 By default, it will turn back the old trading offers.
