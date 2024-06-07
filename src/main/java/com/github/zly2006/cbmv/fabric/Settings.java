@@ -5,9 +5,10 @@ public class Settings {
     /*@Rule(
             categories = {RuleCategory.CREATIVE, VILLAGER_CATEGORY}
     )*/
-    public static boolean villagerOldOffers = true;
+    public static boolean villagerOldOffers = false;
     /*@Rule(
             categories = {RuleCategory.CREATIVE, VILLAGER_CATEGORY}
     )*/
     public static boolean villagerOldCure = true;
+    public static boolean oldRaid = true;
 }

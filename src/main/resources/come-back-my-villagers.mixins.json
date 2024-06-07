@@ -4,7 +4,13 @@
   "package": "com.github.zly2006.cbmv.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "raid.MixinBadOmen",
+    "MixinEnchantments",
     "MixinGossip",
+    "raid.MixinRaid",
+    "raid.MixInRaider",
+    "raid.MixinRaiderLoot",
+    "raid.MixinRaidManager",
     "MixinVillagerEntity"
   ],
   "client": [
