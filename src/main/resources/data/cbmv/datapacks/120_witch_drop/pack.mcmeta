@@ -1,6 +1,8 @@
 {
   "pack": {
-    "description": "1.20 witch drop, enable it if you feels there are too many redstones.",
+    "description": {
+      "translate": "pack.120_witch_drop.desc"
+    },
     "pack_format": 48
   }
 }

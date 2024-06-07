@@ -15,13 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Mixin(VanillaResourcePackProvider.class)
 public abstract class MixinVanillaResourcePackProvider {
-    @Shadow protected abstract void forEachProfile(Consumer<ResourcePackProfile> consumer);
-
     @Shadow protected abstract void forEachProfile(@Nullable Path namespacedPath, BiConsumer<String, Function<String, ResourcePackProfile>> consumer);
 
     @Shadow @Final private ResourceType type;
