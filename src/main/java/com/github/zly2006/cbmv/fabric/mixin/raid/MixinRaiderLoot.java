@@ -1,15 +1,22 @@
 package com.github.zly2006.cbmv.fabric.mixin.raid;
 
+import net.minecraft.data.server.loottable.EntityLootTableGenerator;
 import net.minecraft.data.server.loottable.vanilla.VanillaEntityLootTableGenerator;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.resource.featuretoggle.FeatureSet;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(VanillaEntityLootTableGenerator.class)
-public class MixinRaiderLoot {
+public abstract class MixinRaiderLoot extends EntityLootTableGenerator {
+    protected MixinRaiderLoot(FeatureSet requiredFeatures, RegistryWrapper.WrapperLookup registryLookup) {
+        super(requiredFeatures, registryLookup);
+    }
+
     @Redirect(
             method = "generate",
             at = @At(
