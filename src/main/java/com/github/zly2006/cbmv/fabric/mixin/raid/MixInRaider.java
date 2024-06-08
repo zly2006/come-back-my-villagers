@@ -1,8 +1,10 @@
 package com.github.zly2006.cbmv.fabric.mixin.raid;
 
+import com.github.zly2006.cbmv.fabric.ComeBackMyVillagers;
 import com.github.zly2006.cbmv.fabric.Settings;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -12,8 +14,11 @@ import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.raid.Raid;
 import net.minecraft.world.GameRules;
@@ -21,16 +26,45 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(RaiderEntity.class)
 public abstract class MixInRaider extends PatrolEntity {
+    @Unique private boolean usedToBeRaider;
     @Shadow public abstract @Nullable Raid getRaid();
+
+    @Shadow @Nullable protected Raid raid;
 
     protected MixInRaider(EntityType<? extends PatrolEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Inject(
+            method = "setRaid",
+            at = @At("HEAD")
+    )
+    private void onRaid(Raid raid, CallbackInfo ci) {
+        if (raid != null) {
+            usedToBeRaider = true;
+        }
+    }
+
+    @Override
+    protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
+        if (usedToBeRaider && ComeBackMyVillagers.settings.oldWitchDropIfRaider && getType() == EntityType.WITCH) {
+            this.lootTable = RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of("cbmv", "entities/witch"));
+        }
+        super.dropLoot(damageSource, causedByPlayer);
+    }
+
+    @Nullable
+    @Override
+    public ItemEntity dropStack(ItemStack stack) {
+        if (ComeBackMyVillagers.settings.oldRaid && stack.isOf(Items.OMINOUS_BOTTLE)) return null;
+        return super.dropStack(stack);
     }
 
     @Inject(
@@ -41,7 +75,7 @@ public abstract class MixInRaider extends PatrolEntity {
             )
     )
     private void giveEffect(DamageSource damageSource, CallbackInfo ci) {
-        if (Settings.oldRaid && getWorld() instanceof ServerWorld serverWorld) {
+        if (ComeBackMyVillagers.settings.oldRaid && getWorld() instanceof ServerWorld serverWorld) {
             if (this.isPatrolLeader()
                     && this.getRaid() == null
                     && serverWorld.getRaidAt(this.getBlockPos()) == null) {

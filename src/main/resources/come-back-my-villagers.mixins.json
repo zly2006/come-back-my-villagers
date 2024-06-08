@@ -7,11 +7,11 @@
     "MixinEnchantments",
     "MixinGossip",
     "MixinVillagerEntity",
+    "command.MixinCM",
     "datapack.MixinVanillaResourcePackProvider",
     "raid.MixinBadOmen",
     "raid.MixinRaid",
-    "raid.MixInRaider",
-    "raid.MixinRaidManager"
+    "raid.MixInRaider"
   ],
   "client": [
   ],

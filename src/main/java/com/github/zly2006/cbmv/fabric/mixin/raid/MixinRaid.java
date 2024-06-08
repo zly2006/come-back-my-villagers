@@ -1,5 +1,6 @@
 package com.github.zly2006.cbmv.fabric.mixin.raid;
 
+import com.github.zly2006.cbmv.fabric.ComeBackMyVillagers;
 import com.github.zly2006.cbmv.fabric.Settings;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,7 +22,7 @@ public class MixinRaid {
             )
     )
     private StatusEffectInstance onStart(ServerPlayerEntity instance, RegistryEntry<StatusEffect> registryEntry) {
-        if (Settings.oldRaid) {
+        if (ComeBackMyVillagers.settings.oldRaid) {
             return instance.getStatusEffect(StatusEffects.BAD_OMEN);
         } else {
             return instance.getStatusEffect(registryEntry);

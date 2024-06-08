@@ -1,6 +1,6 @@
 package com.github.zly2006.cbmv.fabric.mixin;
 
-import com.github.zly2006.cbmv.fabric.Settings;
+import com.github.zly2006.cbmv.fabric.ComeBackMyVillagers;
 import net.minecraft.village.VillageGossipType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +20,7 @@ public class MixinGossip {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(String string, int i, String key, int multiplier, int maxReputation, int decay, int shareDecrement, CallbackInfo ci) {
-        if (Settings.villagerOldCure) {
+        if (ComeBackMyVillagers.settings.villagerOldCure) {
             if (key.equals("major_positive")) {
                 this.maxValue = 100;
                 this.shareDecrement = 100;

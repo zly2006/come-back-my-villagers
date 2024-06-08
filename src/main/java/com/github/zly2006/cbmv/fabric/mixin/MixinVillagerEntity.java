@@ -1,7 +1,6 @@
 package com.github.zly2006.cbmv.fabric.mixin;
 
 import com.github.zly2006.cbmv.fabric.ComeBackMyVillagers;
-import com.github.zly2006.cbmv.fabric.Settings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -13,7 +12,6 @@ import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Util;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerData;
@@ -64,7 +62,7 @@ public abstract class MixinVillagerEntity extends MerchantEntity {
     @SuppressWarnings("rawtypes")
     @Redirect(method = "fillRecipes", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;get(I)Ljava/lang/Object;", remap = false))
     private Object fillRecipesModify(Int2ObjectMap instance, int i) {
-        if (Settings.villagerOldOffers) {
+        if (ComeBackMyVillagers.settings.villagerOldOffers) {
             var factories = PROFESSION_TO_LEVELED_TRADE.get(getVillagerData().getProfession());
             if (factories != null) {
                 return factories.get(i);
