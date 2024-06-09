@@ -1,6 +1,7 @@
 package com.github.zly2006.cbmv.fabric;
 
 import com.google.gson.Gson;
+import com.google.gson.ToNumberPolicy;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.Enchantment;
@@ -15,12 +16,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ComeBackMyVillagers implements ModInitializer {
+    static final Gson GSON = new Gson().newBuilder()
+            .setPrettyPrinting()
+            .setObjectToNumberStrategy(ToNumberPolicy.LONG_OR_DOUBLE)
+            .create();
     static Path configPath = FabricLoader.getInstance().getConfigDir().resolve("cbmv.json");
     public static Settings settings;
     public static final TagKey<Enchantment> villagerPossibleTag = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of("cbmv:villager_possible_enchantments"));
 
     public static void saveSettings() throws IOException {
-        Files.writeString(configPath, new Gson().toJson(settings));
+        Files.writeString(configPath, GSON.toJson(settings));
     }
 
     @Override
@@ -30,14 +35,14 @@ public class ComeBackMyVillagers implements ModInitializer {
 
     static {
         try {
-            settings = new Gson().fromJson(new FileReader(configPath.toFile()), Settings.class);
-        } catch (FileNotFoundException e) {
+            settings = GSON.fromJson(new FileReader(configPath.toFile()), Settings.class);
+        } catch (FileNotFoundException ignored) {
             settings = new Settings();
             try {
-                Files.writeString(configPath, new Gson().toJson(settings));
-            } catch (IOException ignored) {
+                Files.writeString(configPath, GSON.toJson(settings));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            e.printStackTrace();
         }
     }
 }

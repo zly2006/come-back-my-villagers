@@ -1,0 +1,66 @@
+{
+  "type": "entity",
+  "random_sequence": "entities/witch",
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "glowstone_dust",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "redstone",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "spider_eye",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "glass_bottle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "gunpowder",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "sugar",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "stick",
+          "weight": 2
+        }
+      ],
+      "functions": [
+        {
+          "function": "set_count",
+          "count": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "function": "enchanted_count_increase",
+          "enchantment": "looting",
+          "count": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}
