@@ -1,7 +1,6 @@
 package com.github.zly2006.cbmv.fabric.mixin.raid;
 
 import com.github.zly2006.cbmv.fabric.ComeBackMyVillagers;
-import com.github.zly2006.cbmv.fabric.Settings;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
@@ -35,8 +34,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixInRaider extends PatrolEntity {
     @Unique private boolean usedToBeRaider;
     @Shadow public abstract @Nullable Raid getRaid();
-
-    @Shadow @Nullable protected Raid raid;
 
     protected MixInRaider(EntityType<? extends PatrolEntity> entityType, World world) {
         super(entityType, world);
